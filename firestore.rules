@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Modo de desenvolvimento: Permite todas as operações se o usuário estiver autenticado no Firebase.
+    // Atualmente o app usa uma store local (useAuthStore).
+    // TODO: Configurar o Firebase Auth e associar perfis de usuários para aplicar regras reais.
+    match /{document=**} {
+      allow read, write: if true; // Mudado de 'request.auth != null' para 'if true' pois não há Firebase Auth
+    }
+  }
+}
