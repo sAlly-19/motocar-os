@@ -48,14 +48,14 @@ export default function LoginScreen() {
     clearError();
   }, [mode, clearError]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitting(true);
     try {
       if (mode === 'admin') {
-        const ok = loginAdmin(name, password);
+        const ok = await loginAdmin(name, password);
         if (ok) router.replace('/');
       } else {
-        const ok = loginEmployee(phone, token, employees);
+        const ok = await loginEmployee(phone, token, employees);
         if (ok) router.replace('/');
       }
     } finally {

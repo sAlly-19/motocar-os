@@ -1,10 +1,13 @@
 import { getApp, getApps, initializeApp, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 import { getFirestore, initializeFirestore, type Firestore } from 'firebase/firestore';
+import { getAuth, initializeAuth, type Auth } from 'firebase/auth';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 declare const process: { env: Record<string, string | undefined> };
 
 let appInstance: FirebaseApp | null = null;
 let dbInstance: Firestore | null = null;
+let authInstance: Auth | null = null;
 
 function readEnv(key: string): string {
   const value = process.env[key];
@@ -41,4 +44,11 @@ export function getFirebaseDb(): Firestore {
     dbInstance = getFirestore(app);
   }
   return dbInstance;
+}
+
+export function getFirebaseAuth(): Auth {
+  if (authInstance) return authInstance;
+  const app = getFirebaseApp();
+  authInstance = getAuth(app);
+  return authInstance;
 }

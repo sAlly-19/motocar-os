@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInWithEmailAndPassword, signInAnonymously, signOut } from 'firebase/auth';
+import { getFirebaseAuth } from '../services/firebase/client';
 import type { Employee } from './useTeamStore';
 
 /**
@@ -25,8 +27,8 @@ export interface AuthState {
   employeeId: string | null;
   loginError: string | null;
 
-  loginAdmin: (name: string, password: string) => boolean;
-  loginEmployee: (phone: string, token: string, employees: Employee[]) => boolean;
+  loginAdmin: (name: string, password: string) => Promise<boolean>;
+  loginEmployee: (phone: string, token: string, employees: Employee[]) => Promise<boolean>;
   logout: () => void;
   clearError: () => void;
 }
@@ -43,16 +45,25 @@ export const useAuthStore = create<AuthState>()(
       employeeId: null,
       loginError: null,
 
-      loginAdmin: (name, password) => {
+      loginAdmin: async (name, password) => {
         if (name.trim() === ADMIN_NAME && password === ADMIN_PASSWORD) {
-          set({ role: 'admin', name: ADMIN_NAME, employeeId: null, loginError: null });
-          return true;
+          try {
+            const auth = getFirebaseAuth();
+            // Utiliza o e-mail mapeado ou um genérico baseado no projeto
+            const adminEmail = process.env.EXPO_PUBLIC_ADMIN_EMAIL || 'admin@motocar.com.br';
+            await signInWithEmailAndPassword(auth, adminEmail, password);
+            set({ role: 'admin', name: ADMIN_NAME, employeeId: null, loginError: null });
+            return true;
+          } catch (error: any) {
+            set({ loginError: `Falha na autenticação Cloud: ${error.message}` });
+            return false;
+          }
         }
         set({ loginError: 'Credenciais de administrador inválidas.' });
         return false;
       },
 
-      loginEmployee: (phone, token, employees) => {
+      loginEmployee: async (phone, token, employees) => {
         const target = normalizePhone(phone);
         const match = employees.find(
           (e) => normalizePhone(e.phone) === target && e.token === token.trim(),
@@ -65,16 +76,28 @@ export const useAuthStore = create<AuthState>()(
           set({ loginError: 'Funcionário inativo. Contate o administrador.' });
           return false;
         }
-        set({
-          role: 'employee',
-          name: match.fullName,
-          employeeId: match.id,
-          loginError: null,
-        });
-        return true;
+        try {
+          // Loga anonimamente no firebase auth para adquirir permissões básicas do firestore.rules
+          const auth = getFirebaseAuth();
+          await signInAnonymously(auth);
+          set({
+            role: 'employee',
+            name: match.fullName,
+            employeeId: match.id,
+            loginError: null,
+          });
+          return true;
+        } catch (error: any) {
+          set({ loginError: `Falha na sessão da equipe: ${error.message}` });
+          return false;
+        }
       },
 
-      logout: () => set({ role: null, name: null, employeeId: null, loginError: null }),
+      logout: () => {
+        const auth = getFirebaseAuth();
+        signOut(auth).catch(() => {});
+        set({ role: null, name: null, employeeId: null, loginError: null });
+      },
       clearError: () => set({ loginError: null }),
     }),
     {
