@@ -167,7 +167,7 @@ export default function InventoryScreen() {
               </View>
               <Button
                 variant="primary"
-                title={t('inventory.newPart')}
+                title={'Nova Peça'}
                 icon="add"
                 onPress={() => router.push('/inventory/new-part')}
               />
@@ -183,7 +183,7 @@ export default function InventoryScreen() {
             >
               <View style={{ flex: 1 }}>
                 <KpiCard
-                  label={t('inventory.totalValue')}
+                  label={'Valor Total em Estoque'}
                   value={formatCurrency(kpis.totalValue)}
                   icon="inventory_2"
                   iconBg={colors['primary-container']}
@@ -234,7 +234,7 @@ export default function InventoryScreen() {
                       { flex: 1, height: 48, color: colors['on-surface'], paddingLeft: spacing.sm },
                       isWeb && ({ outlineStyle: 'none', outlineWidth: 0 } as any),
                     ]}
-                    placeholder={t('inventory.searchPlaceholder')}
+                    placeholder={'Ex: Filtro por nome, marca ou SKU'}
                     placeholderTextColor={colors.placeholder}
                     value={searchQuery}
                     onChangeText={setSearchQuery}

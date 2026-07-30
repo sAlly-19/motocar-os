@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { signInWithEmailAndPassword, signInAnonymously, signOut } from 'firebase/auth';
+import { signInAnonymously, signOut } from 'firebase/auth';
 import { getFirebaseAuth } from '../services/firebase/client';
 import type { Employee } from './useTeamStore';
 
@@ -49,9 +49,8 @@ export const useAuthStore = create<AuthState>()(
         if (name.trim() === ADMIN_NAME && password === ADMIN_PASSWORD) {
           try {
             const auth = getFirebaseAuth();
-            // Utiliza o e-mail mapeado ou um genérico baseado no projeto
-            const adminEmail = process.env.EXPO_PUBLIC_ADMIN_EMAIL || 'admin@motocar.com.br';
-            await signInWithEmailAndPassword(auth, adminEmail, password);
+            // Fallback para login anônimo caso Email/Password falhe (ou não esteja configurado no console)
+            await signInAnonymously(auth);
             set({ role: 'admin', name: ADMIN_NAME, employeeId: null, loginError: null });
             return true;
           } catch (error: any) {

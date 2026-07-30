@@ -177,7 +177,7 @@ export default function NewOrderScreen() {
   };
 
   const [items, setItems] = useState<OrderItem[]>([
-    { id: generateId(), type: 'service', description: 'Diagnóstico de Motor & Inspeção Completa', quantity: 2, unitPrice: 120 },
+    { id: generateId(), type: 'part', description: '', quantity: 0, unitPrice: 0 },
   ]);
   const [discount, setDiscount] = useState(0);
   const [successModal, setSuccessModal] = useState(false);

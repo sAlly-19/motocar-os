@@ -205,7 +205,7 @@ export function generateBudgetHtml(budget: Budget, customer?: Customer | null, v
   </div>
 
   <div class="footer">
-    MotoCar Premium Workshop Manager • Documento gerado em ${escapeHtml(formatBRDate(new Date().toISOString()))}
+    MotoCar - Sistema de Gestão Ordens de Serviço • Documento gerado em ${escapeHtml(formatBRDate(new Date().toISOString()))}
   </div>
 </body>
 </html>`;

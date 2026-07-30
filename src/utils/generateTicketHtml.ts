@@ -214,7 +214,7 @@ export function generateTicketHtml(
   ${notes ? `<div class="notes"><strong>Observações:</strong><br/>${notes.replace(/\n/g, '<br/>')}</div>` : ''}
 
   <div class="footer">
-    MotoCar Premium Workshop Manager • ${escapeHtml(formatBRDate(new Date().toISOString()))}
+    MotoCar - Sistema de Gestão Ordens de Serviço  • ${escapeHtml(formatBRDate(new Date().toISOString()))}
   </div>
 </body>
 </html>`;

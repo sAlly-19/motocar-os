@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, useThemeShadows, spacing } from '../../src/theme';
@@ -95,19 +95,15 @@ export default function LoginScreen() {
           >
             {/* Logo / título */}
             <View style={{ alignItems: 'center', marginBottom: spacing.md }}>
-              <View
+              <Image 
+                source={require('../../assets/logo.png')} 
                 style={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: 32,
-                  backgroundColor: colors['primary-container'],
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  width: 180,
+                  height: 180,
+                  resizeMode: 'contain',
                   marginBottom: spacing.sm,
-                }}
-              >
-                <Icon name="lock" size={30} color={colors['on-primary-container']} />
-              </View>
+                }} 
+              />
               <AppText variant="h2" style={{ color: colors.primary }}>
                 MotoCar
               </AppText>
@@ -218,7 +214,7 @@ export default function LoginScreen() {
           </View>
 
           <AppText variant="labelSmall" color="text-tertiary" style={{ marginTop: spacing.lg }}>
-            MotoCar Premium Workshop Manager
+            MotoCar - Sistema de Gestão Ordens de Serviço
           </AppText>
         </ScrollView>
       </KeyboardAvoidingView>

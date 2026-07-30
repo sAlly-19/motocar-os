@@ -27,7 +27,7 @@ const menuItems: MenuItem[] = [
   { icon: 'inventory_2', labelKey: 'tabs.inventory', fallback: 'Estoque', route: '/(tabs)/inventory' },
   { icon: 'calendar_month', labelKey: 'tabs.schedule', fallback: 'Agenda', route: '/(tabs)/schedule' },
   { icon: 'request_quote', labelKey: 'sidebar.budgets', fallback: 'Orçamentos', route: '/budgets' },
-  { icon: 'receipt_long', labelKey: 'sidebar.billing', fallback: 'Faturar', route: '/billing', adminOnly: true },
+  { icon: 'receipt_long', labelKey: 'sidebar.billing', fallback: 'Faturamento', route: '/billing', adminOnly: true },
   { icon: 'group', labelKey: 'sidebar.team', fallback: 'Equipe', route: '/team', adminOnly: true },
   { icon: 'person', labelKey: 'tabs.profile', fallback: 'Conta', route: '/(tabs)/profile' },
 ];

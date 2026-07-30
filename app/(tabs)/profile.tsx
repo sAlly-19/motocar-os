@@ -13,6 +13,9 @@ import { useDialog } from '../../src/components/DialogContext';
 import { useAppStore } from '../../src/stores/useAppStore';
 import { useIsAdmin } from '../../src/stores/useAuthStore';
 import { formatCurrency } from '../../src/utils/currency';
+import { memoryEagerGarbageCollector } from 'firebase/firestore';
+import { EmployeesReport } from '@/components/reports/EmployeesReport';
+import { useTeamStore } from '@/stores/useTeamStore';
 
 interface ThemeInfo {
   key: ThemeKey;
@@ -136,10 +139,10 @@ export default function ProfileScreen() {
             {/* Botão de foto oculto pois está em desenvolvimento */}
           </View>
           <AppText variant="h4" style={{ color: colors.primary }}>
-            Minha Conta
+            Minha Conta - {isAdmin ? 'Administrador' : 'Usuário'}
           </AppText>
           <AppText variant="bodySmall" color="text-secondary" style={{ marginBottom: spacing.lg }}>
-            MotoCar App
+            MotoCar OS
           </AppText>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
             <View style={{ alignItems: 'center' }}>

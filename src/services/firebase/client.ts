@@ -1,7 +1,9 @@
 import { getApp, getApps, initializeApp, type FirebaseApp, type FirebaseOptions } from 'firebase/app';
 import { getFirestore, initializeFirestore, type Firestore } from 'firebase/firestore';
 import { getAuth, initializeAuth, type Auth } from 'firebase/auth';
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+// @ts-ignore - Ignora o erro de tipagem ausente caso a versão exata não tenha o type map atualizado
+import { getReactNativePersistence } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 declare const process: { env: Record<string, string | undefined> };
 
@@ -49,6 +51,12 @@ export function getFirebaseDb(): Firestore {
 export function getFirebaseAuth(): Auth {
   if (authInstance) return authInstance;
   const app = getFirebaseApp();
-  authInstance = getAuth(app);
+  try {
+    authInstance = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
+  } catch {
+    authInstance = getAuth(app);
+  }
   return authInstance;
 }

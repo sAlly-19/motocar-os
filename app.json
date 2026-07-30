@@ -1,11 +1,16 @@
 {
   "expo": {
-    "name": "MotoCar",
-    "slug": "motocar",
+    "name": "MotoCar OS",
+    "slug": "motocar-os",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#031636"
+    },
     "scheme": "motocar",
     "ios": {
       "supportsTablet": true,
@@ -24,7 +29,10 @@
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.motocar.app",
-      "permissions": ["CAMERA", "READ_EXTERNAL_STORAGE"]
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -32,7 +40,8 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      "expo-splash-screen"
     ]
   }
 }

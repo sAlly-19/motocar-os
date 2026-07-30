@@ -74,7 +74,7 @@ export function SplashScreen({ onFinish }: SplashScreenProps) {
         <AppText variant="h1" style={{ color: colors['on-primary'], fontSize: 36 }}>MotoCar</AppText>
       </Reanimated.View>
       <Reanimated.View style={[rSubtitleStyle, { marginTop: spacing.sm }]}>
-        <AppText variant="body" style={{ color: colors['on-primary'], opacity: 0.8 }}>Oficina Premium</AppText>
+        <AppText variant="body" style={{ color: colors['on-primary'], opacity: 0.8 }}>Sistema de Gerenciamento de Ordens de Serviço</AppText>
       </Reanimated.View>
       <View style={{ position: 'absolute', bottom: 80, left: spacing.xl, right: spacing.xl }}>
         <View
