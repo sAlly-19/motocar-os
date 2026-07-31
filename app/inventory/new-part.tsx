@@ -143,7 +143,7 @@ export default function NewPartScreen() {
     : allVehicleModels;
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView
           ref={scrollRef}
@@ -582,6 +582,6 @@ export default function NewPartScreen() {
           </View>
         </Modal>
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

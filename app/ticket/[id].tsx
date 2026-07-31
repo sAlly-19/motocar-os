@@ -59,7 +59,7 @@ export default function TicketScreen() {
 
   if (!order) {
     return (
-      <AppShell>
+      <>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <EmptyState
             icon="warning"
@@ -68,7 +68,7 @@ export default function TicketScreen() {
             action={<Button variant="outline" title="Voltar" onPress={() => router.back()} />}
           />
         </View>
-      </AppShell>
+      </>
     );
   }
 
@@ -212,7 +212,7 @@ export default function TicketScreen() {
   };
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView
           style={{ flex: 1 }}
@@ -593,6 +593,6 @@ export default function TicketScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

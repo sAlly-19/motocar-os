@@ -33,7 +33,7 @@ export default function TeamScreen() {
       .join('');
 
   return (
-    <AppShell>
+    <>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ padding: spacing['margin-mobile'], paddingBottom: 140 }}
@@ -128,6 +128,6 @@ export default function TeamScreen() {
           ))
         )}
       </ScrollView>
-    </AppShell>
+    </>
   );
 }

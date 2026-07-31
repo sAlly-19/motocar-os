@@ -240,7 +240,7 @@ export default function AppointmentFormScreen() {
 
   if (isEdit && !existing) {
     return (
-      <AppShell>
+      <>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: spacing.lg }}>
           <AppText variant="h3" style={{ color: colors.primary }}>
             Agendamento não encontrado
@@ -255,12 +255,12 @@ export default function AppointmentFormScreen() {
             style={{ marginTop: spacing.lg }}
           />
         </View>
-      </AppShell>
+      </>
     );
   }
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView
           ref={scrollRef}
@@ -463,6 +463,6 @@ export default function AppointmentFormScreen() {
           }}
         />
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

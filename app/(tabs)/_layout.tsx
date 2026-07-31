@@ -38,10 +38,9 @@ export default function TabsLayout() {
   }, []);
 
   return (
-    <AppShell
-      bottomSlot={<Dock items={tabs} activeKey={activeTab} onSelect={handleNavigate} />}
-    >
+    <>
       <Slot />
-    </AppShell>
+      <Dock items={tabs} activeKey={activeTab} onSelect={handleNavigate} />
+    </>
   );
 }

@@ -231,7 +231,7 @@ export default function BudgetsScreen() {
   };
 
   return (
-    <AppShell>
+    <>
       <FlatList
         data={filtered}
         keyExtractor={(item) => item.id}
@@ -644,6 +644,6 @@ export default function BudgetsScreen() {
           );
         }}
       />
-    </AppShell>
+    </>
   );
 }

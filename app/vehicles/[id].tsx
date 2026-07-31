@@ -77,14 +77,14 @@ export default function EditVehicleScreen() {
 
   if (!vehicle) {
     return (
-      <AppShell>
+      <>
         <EmptyState
           illustration="empty-inventory"
           title="Veículo não encontrado"
           subtitle="Este veículo foi removido ou o link está incorreto."
           action={<Button variant="primary" title="Voltar" onPress={() => router.back()} />}
         />
-      </AppShell>
+      </>
     );
   }
 
@@ -142,7 +142,7 @@ export default function EditVehicleScreen() {
   const availableTipos = category === 'carro' ? CARRO_TIPOS : category === 'motocicleta' ? MOTO_TIPOS : [];
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView
           ref={scrollRef}
@@ -301,6 +301,6 @@ export default function EditVehicleScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

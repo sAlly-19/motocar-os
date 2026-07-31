@@ -123,7 +123,7 @@ export default function NewVehicleScreen() {
   const br = useThemeBorderRadius();
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView
           ref={scrollRef}
@@ -281,6 +281,6 @@ export default function NewVehicleScreen() {
           }}
         />
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

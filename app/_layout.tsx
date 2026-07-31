@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Text } from 'react-native';
-import { Stack } from 'expo-router';
+import { Stack, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ErrorBoundary } from '../src/components/ErrorBoundary';
@@ -18,6 +18,7 @@ import { SidebarProvider } from '../src/components/SidebarContext';
 import { DialogProvider } from '../src/components/DialogContext';
 import { SplashScreen } from '../src/components/SplashScreen';
 import { AuthGate } from '../src/components/AuthGate';
+import { AppShell } from '../src/components/AppShell';
 
 // Prevent OS-level font scaling from distorting our carefully tuned type scale.
 try {
@@ -36,6 +37,7 @@ export default function RootLayout() {
   // which fires when its own animation sequence completes (~1.5s). Meanwhile the
   // store initialization runs in the background gated on `fontsLoaded`.
   const [showSplash, setShowSplash] = useState(true);
+  const segments = useSegments();
   useAppInitialization(fontsLoaded);
 
   if (showSplash) {
@@ -46,45 +48,54 @@ export default function RootLayout() {
     );
   }
 
+  const isLogin = segments[0] === 'login';
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ErrorBoundary>
         <ThemeProvider>
           <SafeAreaProvider>
             <DialogProvider>
-                <SidebarProvider>
-                  <StatusBar style="auto" />
-                  <AuthGate>
-                    <Stack
-                      screenOptions={{
-                        headerShown: false,
-                        animation: 'slide_from_right',
-                        gestureEnabled: true,
-                      }}
-                    >
-                    <Stack.Screen name="login/index" options={{ animation: 'fade' }} />
-                    <Stack.Screen name="(tabs)" options={{ animation: 'none' }} />
-                    <Stack.Screen name="orders/new" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="customers/new" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="vehicles/new" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="inventory/new-part" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="budgets/index" options={{ gestureEnabled: true }} />
-                    <Stack.Screen name="team/index" options={{ gestureEnabled: true }} />
-                    <Stack.Screen name="team/new" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="team/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="customers/index" options={{ gestureEnabled: true }} />
-                    <Stack.Screen name="customers/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="vehicles/index" options={{ gestureEnabled: true }} />
-                    <Stack.Screen name="vehicles/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="inventory/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="schedule/new" options={{ presentation: 'modal', gestureEnabled: true }} />
-                    <Stack.Screen name="billing/index" options={{ gestureEnabled: true }} />
-                    <Stack.Screen name="notifications/index" options={{ gestureEnabled: true }} />
-                    <Stack.Screen name="reports/index" options={{ gestureEnabled: true }} />
-                    <Stack.Screen name="ticket/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
+              <SidebarProvider>
+                <StatusBar style="auto" />
+                <AuthGate>
+                  {isLogin ? (
+                    <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
+                      <Stack.Screen name="login/index" />
                     </Stack>
-                  </AuthGate>
-                </SidebarProvider>
+                  ) : (
+                    <AppShell>
+                      <Stack
+                        screenOptions={{
+                          headerShown: false,
+                          animation: 'slide_from_right',
+                          gestureEnabled: true,
+                        }}
+                      >
+                        <Stack.Screen name="(tabs)" options={{ animation: 'none' }} />
+                        <Stack.Screen name="orders/new" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="customers/new" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="vehicles/new" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="inventory/new-part" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="budgets/index" options={{ gestureEnabled: true }} />
+                        <Stack.Screen name="team/index" options={{ gestureEnabled: true }} />
+                        <Stack.Screen name="team/new" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="team/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="customers/index" options={{ gestureEnabled: true }} />
+                        <Stack.Screen name="customers/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="vehicles/index" options={{ gestureEnabled: true }} />
+                        <Stack.Screen name="vehicles/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="inventory/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="schedule/new" options={{ presentation: 'modal', gestureEnabled: true }} />
+                        <Stack.Screen name="billing/index" options={{ gestureEnabled: true }} />
+                        <Stack.Screen name="notifications/index" options={{ gestureEnabled: true }} />
+                        <Stack.Screen name="reports/index" options={{ gestureEnabled: true }} />
+                        <Stack.Screen name="ticket/[id]" options={{ presentation: 'modal', gestureEnabled: true }} />
+                      </Stack>
+                    </AppShell>
+                  )}
+                </AuthGate>
+              </SidebarProvider>
             </DialogProvider>
           </SafeAreaProvider>
         </ThemeProvider>

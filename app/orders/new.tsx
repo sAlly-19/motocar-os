@@ -407,7 +407,7 @@ export default function NewOrderScreen() {
   // Part search modal e customer search modal transferidos para componentes externos.
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <View
           style={{
@@ -871,6 +871,6 @@ export default function NewOrderScreen() {
           }}
         />
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

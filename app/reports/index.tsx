@@ -114,7 +114,7 @@ export default function ReportsScreen() {
   };
 
   return (
-    <AppShell>
+    <>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ padding: spacing['margin-mobile'], paddingBottom: 120 }}
@@ -271,6 +271,6 @@ export default function ReportsScreen() {
           />
         )}
       </ScrollView>
-    </AppShell>
+    </>
   );
 }

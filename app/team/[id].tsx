@@ -76,14 +76,14 @@ export default function EditEmployeeScreen() {
 
   if (!employee) {
     return (
-      <AppShell>
+      <>
         <EmptyState
           illustration="empty-team"
           title="Membro não encontrado"
           subtitle="Este membro foi removido ou o link está incorreto."
           action={<Button variant="primary" title="Voltar" onPress={() => router.back()} />}
         />
-      </AppShell>
+      </>
     );
   }
 
@@ -164,7 +164,7 @@ export default function EditEmployeeScreen() {
   };
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView
           ref={scrollRef}
@@ -346,6 +346,6 @@ export default function EditEmployeeScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

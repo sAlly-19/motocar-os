@@ -93,7 +93,7 @@ export default function NewCustomerScreen() {
   };
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}>
         <ScrollView
           ref={scrollRef}
@@ -155,6 +155,6 @@ export default function NewCustomerScreen() {
           }}
         />
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

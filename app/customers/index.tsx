@@ -46,7 +46,7 @@ export default function CustomersScreen() {
     router.push({ pathname: '/customers/[id]', params: { id } });
 
   return (
-    <AppShell>
+    <>
       <FlatList
         data={filteredCustomers}
         keyExtractor={(item) => item.id}
@@ -207,6 +207,6 @@ export default function CustomersScreen() {
       <FabMenu
         actions={[{ icon: 'person_add', label: 'Novo Cliente', onPress: () => router.push('/customers/new') }]}
       />
-    </AppShell>
+    </>
   );
 }

@@ -77,14 +77,14 @@ export default function EditCustomerScreen() {
 
   if (!customer) {
     return (
-      <AppShell>
+      <>
         <EmptyState
           illustration="empty-inventory"
           title="Cliente não encontrado"
           subtitle="Este cliente foi removido ou o link está incorreto."
           action={<Button variant="primary" title="Voltar" onPress={() => router.back()} />}
         />
-      </AppShell>
+      </>
     );
   }
 
@@ -144,7 +144,7 @@ export default function EditCustomerScreen() {
   };
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView
           ref={scrollRef}
@@ -317,6 +317,6 @@ export default function EditCustomerScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </AppShell>
+    </>
   );
 }

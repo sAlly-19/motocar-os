@@ -147,7 +147,7 @@ export default function BillingScreen() {
   const barGap = 4;
 
   return (
-    <AppShell>
+    <>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ padding: spacing['margin-mobile'], paddingBottom: 120 }}
@@ -410,6 +410,6 @@ export default function BillingScreen() {
           ))
         )}
       </ScrollView>
-    </AppShell>
+    </>
   );
 }

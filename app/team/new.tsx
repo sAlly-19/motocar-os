@@ -85,7 +85,7 @@ export default function NewEmployeeScreen() {
   };
 
   return (
-    <AppShell>
+    <>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -301,6 +301,6 @@ export default function NewEmployeeScreen() {
           router.back();
         }}
       />
-    </AppShell>
+    </>
   );
 }

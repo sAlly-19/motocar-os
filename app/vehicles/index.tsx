@@ -71,7 +71,7 @@ export default function VehiclesScreen() {
     router.push({ pathname: '/vehicles/[id]', params: { id } });
 
   return (
-    <AppShell>
+    <>
       <FlatList
         data={currentItems}
         keyExtractor={(item) => item.id}
@@ -338,6 +338,6 @@ export default function VehiclesScreen() {
       <FabMenu
         actions={[{ icon: 'add', label: 'Novo Modelo', onPress: () => router.push('/vehicles/new') }]}
       />
-    </AppShell>
+    </>
   );
 }
