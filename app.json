@@ -6,21 +6,18 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#031636"
-    },
     "scheme": "motocar",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.motocar.app",
+      "buildNumber": "1.0.0",
       "infoPlist": {
         "NSCameraUsageDescription": "MotoCar precisa da câmera para escanear placas de veículos e documentos.",
         "NSPhotoLibraryUsageDescription": "MotoCar precisa acessar suas fotos para adicionar imagens de peças e veículos."
       }
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#031636",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -41,7 +38,14 @@
     "plugins": [
       "expo-router",
       "expo-font",
-      "expo-splash-screen"
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#031636"
+        }
+      ]
     ]
   }
 }

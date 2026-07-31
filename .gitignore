@@ -35,6 +35,11 @@ yarn-error.*
 .env.*
 .env*.local
 
+# AI tools and temp files
+.claude/
+.rtk/
+AGENTS.md
+
 # typescript
 *.tsbuildinfo
 
