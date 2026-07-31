@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { View, TextInput, FlatList, Platform, Pressable } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { router } from 'expo-router';
 import {
   useThemeColors,
@@ -154,7 +155,8 @@ export default function CustomersScreen() {
             }}
           >
             <View style={{ flex: isDesktop ? 2 : undefined, flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
-              <View
+              <Animated.View
+                sharedTransitionTag={`avatar-customer-${customer.id}`}
                 style={{
                   width: 36,
                   height: 36,
@@ -165,7 +167,7 @@ export default function CustomersScreen() {
                 }}
               >
                 <Icon name="person" size={18} color={colors['on-primary-container']} />
-              </View>
+              </Animated.View>
               <AppText
                 variant="body"
                 style={{ color: colors.primary, fontWeight: '600', flex: 1 }}

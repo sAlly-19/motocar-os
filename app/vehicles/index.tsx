@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { View, TextInput, FlatList, Platform, Pressable } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { router } from 'expo-router';
 import {
   useThemeColors,
@@ -194,7 +195,8 @@ export default function VehiclesScreen() {
           >
             {isDesktop ? (
               <>
-                <View
+                <Animated.View
+                  sharedTransitionTag={`avatar-vehicle-${vehicle.id}`}
                   style={{
                     width: COL_ICON,
                     height: COL_ICON,
@@ -209,7 +211,7 @@ export default function VehiclesScreen() {
                     size={18}
                     color={colors['on-primary-container']}
                   />
-                </View>
+                </Animated.View>
                 <AppText variant="bodySmall" color="text-secondary" style={COLS.category} numberOfLines={1}>
                   {vehicle.category === 'motocicleta' ? 'Motocicleta' : vehicle.category === 'carro' ? 'Carro' : '—'}
                 </AppText>
@@ -261,7 +263,8 @@ export default function VehiclesScreen() {
                     gap: spacing.sm,
                   }}
                 >
-                  <View
+                  <Animated.View
+                    sharedTransitionTag={`avatar-vehicle-${vehicle.id}`}
                     style={{
                       width: COL_ICON,
                       height: COL_ICON,
@@ -276,7 +279,7 @@ export default function VehiclesScreen() {
                       size={18}
                       color={colors['on-primary-container']}
                     />
-                  </View>
+                  </Animated.View>
                   <View style={{ flex: 1, minWidth: 0 }}>
                     <AppText
                       variant="body"

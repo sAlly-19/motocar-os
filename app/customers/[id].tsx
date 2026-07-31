@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { Icon } from '../../src/components/Icon';
 import { router, useNavigation, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, spacing } from '../../src/theme';
@@ -166,11 +168,26 @@ export default function EditCustomerScreen() {
               flexWrap: 'wrap',
             }}
           >
-            <View style={{ flex: 1, minWidth: 200 }}>
-              <AppText variant="h1" style={{ color: colors.primary }}>Editar Cliente</AppText>
-              <AppText variant="bodySmall" color="text-secondary">
-                {customer.fullName}
-              </AppText>
+            <View style={{ flex: 1, minWidth: 200, flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+              <Animated.View
+                sharedTransitionTag={`avatar-customer-${customer.id}`}
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: br.full,
+                  backgroundColor: colors['primary-container'],
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Icon name="person" size={28} color={colors['on-primary-container']} />
+              </Animated.View>
+              <View>
+                <AppText variant="h1" style={{ color: colors.primary }}>Editar Cliente</AppText>
+                <AppText variant="bodySmall" color="text-secondary">
+                  {customer.fullName}
+                </AppText>
+              </View>
             </View>
             <Button variant="destructive" title="Excluir" icon="delete" onPress={handleDelete} />
           </View>
