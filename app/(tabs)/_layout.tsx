@@ -1,15 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { View } from 'react-native';
-import { useSegments, router } from 'expo-router';
+import { useSegments, router, Slot } from 'expo-router';
 import { Dock } from '../../src/components/Dock';
 import { AppShell } from '../../src/components/AppShell';
 import { useNavigationHistory } from '../../src/utils/navigationHistory';
 import { useKeyboardNavigation } from '../../src/utils/keyboardNav';
-import DashboardScreen from './dashboard';
-import OrdersScreen from './orders';
-import InventoryScreen from './inventory';
-import ScheduleScreen from './schedule';
-import ProfileScreen from './profile';
 import type { TabName, TabConfig } from '../../src/navigation/types';
 
 const tabs: TabConfig[] = [
@@ -25,6 +20,7 @@ export default function TabsLayout() {
   const [activeTab, setActiveTab] = useState<TabName>('dashboard');
 
   useEffect(() => {
+    // Mantém a dock destacando o botão certo se a URL for alterada por back button ou link interno
     const currentSegment = segments[segments.length - 1];
     const tab = tabs.find((t) => t.route.endsWith(`/${currentSegment ?? ''}`));
     if (tab && tab.key !== activeTab) setActiveTab(tab.key);
@@ -37,32 +33,15 @@ export default function TabsLayout() {
     const tab = tabs.find((t) => t.route === route);
     if (tab) {
       setActiveTab(tab.key);
-      router.replace(route as any);
+      router.replace(route as any); // Renderização feita automaticamente via Slot
     }
   }, []);
-
-  const renderActiveScreen = () => {
-    switch (activeTab) {
-      case 'dashboard':
-        return <DashboardScreen />;
-      case 'orders':
-        return <OrdersScreen />;
-      case 'inventory':
-        return <InventoryScreen />;
-      case 'schedule':
-        return <ScheduleScreen />;
-      case 'profile':
-        return <ProfileScreen />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <AppShell
       bottomSlot={<Dock items={tabs} activeKey={activeTab} onSelect={handleNavigate} />}
     >
-      {renderActiveScreen()}
+      <Slot />
     </AppShell>
   );
 }
