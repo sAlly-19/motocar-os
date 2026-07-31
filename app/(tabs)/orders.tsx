@@ -14,7 +14,6 @@ import { useAppStore } from '../../src/stores/useAppStore';
 import { EmptyState } from '../../src/components/EmptyState';
 import { FabMenu } from '../../src/components/FabMenu';
 import { AppText, Chip } from '../../src/ui';
-import { useTranslation } from 'react-i18next';
 import { useOrderFilters, type SortOrder, type OrderFilter } from '../../src/hooks/useOrderFilters';
 import { StickyToolbar } from '../../src/components/StickyToolbar';
 import { ListItemCard } from '../../src/components/ListItemCard';
@@ -54,7 +53,6 @@ export default function OrdersScreen() {
   const shadows = useThemeShadows();
   const br = useThemeBorderRadius();
   const { isDesktop } = useBreakpoints();
-  const { t } = useTranslation();
   const orders = useAppStore((s) => s.orders);
   const customers = useAppStore((s) => s.customers);
   const {
@@ -117,7 +115,7 @@ export default function OrdersScreen() {
                   { flex: 1, height: 48, color: colors['on-surface'], paddingLeft: spacing.sm },
                   isWeb && ({ outlineStyle: 'none', outlineWidth: 0 } as any),
                 ]}
-                placeholder={t('orders.search')}
+                placeholder="Buscar ordens, placas ou clientes..."
                 placeholderTextColor={colors.placeholder}
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -398,7 +396,6 @@ export default function OrdersScreen() {
                 <OrderCard
                   order={item}
                   getCustomerName={getCustomerName}
-                  t={t}
                 />
               </ListItemCard>
             ))

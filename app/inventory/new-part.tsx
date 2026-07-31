@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform, TextInput, Pressable, Modal } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { router, useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, spacing, useBreakpoints } from '../../src/theme';
@@ -20,7 +19,6 @@ const FIXED_MODEL_OPTIONS = ['Outros'];
 
 export default function NewPartScreen() {
   const colors = useThemeColors();
-  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { isDesktop } = useBreakpoints();
@@ -160,7 +158,7 @@ export default function NewPartScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <AppText variant="h1" style={{ color: colors.primary, marginBottom: spacing.lg }}>
-            {t('part.title')}
+            Cadastro de Peça
           </AppText>
 
           {/* Card principal de cadastro — foto + dados + preços */}
@@ -174,7 +172,7 @@ export default function NewPartScreen() {
               marginBottom: spacing.gutter,
             }}
           >
-            <CardHeader title={t('part.title')} />
+            <CardHeader title="Cadastro de Peça" />
             <View style={{ padding: spacing.lg }}>
               <View
                 style={{
@@ -196,14 +194,14 @@ export default function NewPartScreen() {
                 {/* Campos */}
                 <View style={{ flex: 1, minWidth: 0, width: isDesktop ? undefined : '100%' }}>
                   <FormField
-                    label={t('part.partName')}
+                    label="Nome da Peça"
                     placeholder="Ex: Kit Pastilha de Freio Cerâmica"
                     value={name}
                     onChangeText={(v) => { setName(v); clearError('name'); markChanged(); }}
                     error={errors.name}
                   />
                   <FormField
-                    label={t('part.sku')}
+                    label="SKU / Código"
                     placeholder="SKU-998822-M"
                     value={sku}
                     onChangeText={(v) => { setSku(v); markChanged(); }}
@@ -212,7 +210,7 @@ export default function NewPartScreen() {
                   {/* Categoria: Carro / Moto */}
                   <View style={{ marginBottom: spacing.md }}>
                     <AppText variant="label" color="text-secondary" style={{ marginBottom: spacing.xs }}>
-                      {t('part.category')}
+                      Categoria
                     </AppText>
                     <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                       <Chip
@@ -245,7 +243,7 @@ export default function NewPartScreen() {
 
                   {/* Marca (autocomplete a partir das peças já cadastradas) */}
                   <Autocomplete
-                    label={t('part.brand')}
+                    label="Marca"
                     placeholder="Ex: Bosch, NGK..."
                     value={brand}
                     onChangeText={(v) => { setBrand(v); markChanged(); }}
@@ -340,7 +338,7 @@ export default function NewPartScreen() {
               <View style={{ flexDirection: 'row', gap: spacing.sm, flexWrap: 'wrap' }}>
                 <View style={{ flex: 1, minWidth: 140 }}>
                   <FormField
-                    label={t('part.currentStock')}
+                    label="Quantidade Atual"
                     placeholder="0"
                     keyboardType="numeric"
                     value={currentStock}
@@ -354,7 +352,7 @@ export default function NewPartScreen() {
                 </View>
                 <View style={{ flex: 1, minWidth: 140 }}>
                   <FormField
-                    label={t('part.minStock')}
+                    label="Estoque Mínimo"
                     placeholder="Limite para alerta"
                     keyboardType="numeric"
                     value={minStock}
@@ -368,7 +366,7 @@ export default function NewPartScreen() {
           <View style={{ gap: spacing.sm, marginTop: spacing.lg }}>
             <Button
               variant="secondary"
-              title={t('part.save')}
+              title="Salvar Registro"
               fullWidth
               loading={saving}
               disabled={!hasUnsavedChanges || saving}
@@ -376,7 +374,7 @@ export default function NewPartScreen() {
             />
             <Button
               variant="outline"
-              title={t('part.discard')}
+              title="Descartar"
               fullWidth
               onPress={() => router.back()}
             />

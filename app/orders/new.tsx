@@ -4,7 +4,6 @@ import { View, ScrollView, TextInput, Pressable, KeyboardAvoidingView, Platform,
 const isWeb = Platform.OS === 'web';
 import { router, useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTranslation } from 'react-i18next';
 import { useThemeColors, useThemeBorderRadius, spacing } from '../../src/theme';
 import { AppText, Button, Chip, Dialog, Select, SearchSelect } from '../../src/ui';
 import { Icon } from '../../src/components/Icon';
@@ -35,7 +34,6 @@ interface OrderItem {
 export default function NewOrderScreen() {
   const colors = useThemeColors();
   const br = useThemeBorderRadius();
-  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { showConfirm, showAlert } = useDialog();
@@ -420,7 +418,7 @@ export default function NewOrderScreen() {
           }}
         >
           <AppText variant="h4" style={{ color: colors.primary }}>
-            {t('newOrder.title')}
+            Nova Ordem de Serviço
           </AppText>
         </View>
         <ScrollView
@@ -444,12 +442,12 @@ export default function NewOrderScreen() {
                       variant="label"
                       style={{ color: colors['on-primary'], textTransform: 'uppercase', letterSpacing: 0.5 }}
                     >
-                      {t('newOrder.customerInfo')}
+                      Dados do Cliente
                     </AppText>
                   </View>
                   <View style={{ padding: spacing.lg }}>
                     <AppText variant="label" color="text-secondary" style={{ marginBottom: spacing.xs }}>
-                      {t('customer.fullName')}
+                      Nome Completo
                     </AppText>
                     <Pressable
                       onPress={() => { setShowCustomerSearch(true); }}
@@ -489,7 +487,7 @@ export default function NewOrderScreen() {
                       </AppText>
                     )}
                     <FormField
-                      label={t('customer.phone')}
+                      label="Telefone"
                       placeholder="(11) 99999-9999"
                       keyboardType="phone-pad"
                       value={customerPhone}
@@ -504,12 +502,12 @@ export default function NewOrderScreen() {
                       variant="label"
                       style={{ color: colors['on-primary'], textTransform: 'uppercase', letterSpacing: 0.5 }}
                     >
-                      {t('newOrder.vehicleInfo')}
+                      Dados do Veículo
                     </AppText>
                   </View>
                   <View style={{ padding: spacing.lg, gap: spacing.md }}>
                     <FormField
-                      label={t('vehicle.plate')}
+                      label="Placa"
                       placeholder="ABC-1234"
                       autoCapitalize="characters"
                       value={plate}
@@ -601,7 +599,7 @@ export default function NewOrderScreen() {
                     variant="label"
                     style={{ color: colors['on-primary'], textTransform: 'uppercase', letterSpacing: 0.5 }}
                   >
-                    {t('newOrder.items')}
+                    Itens da Ordem
                   </AppText>
                   <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                     <Chip label="Peca" leftIcon="add_circle" onPress={() => addItem('part')} size="sm" />
@@ -760,20 +758,20 @@ export default function NewOrderScreen() {
                     variant="label"
                     style={{ color: colors['on-primary'], textTransform: 'uppercase', letterSpacing: 0.5 }}
                   >
-                    {t('newOrder.summary')}
+                    Resumo Financeiro
                   </AppText>
                 </View>
                 <View style={{ padding: spacing.lg, gap: spacing.md }}>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <AppText variant="bodySmall" color="text-secondary">{t('newOrder.partsSubtotal')}</AppText>
+                    <AppText variant="bodySmall" color="text-secondary">Subtotal Peças</AppText>
                     <AppText variant="bodySmall" style={{ fontWeight: '600' }}>R$ {partsTotal.toFixed(2)}</AppText>
                   </View>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <AppText variant="bodySmall" color="text-secondary">{t('newOrder.laborSubtotal')}</AppText>
+                    <AppText variant="bodySmall" color="text-secondary">Subtotal Mão de Obra</AppText>
                     <AppText variant="bodySmall" style={{ fontWeight: '600' }}>R$ {laborTotal.toFixed(2)}</AppText>
                   </View>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <AppText variant="labelSmall" color="text-secondary">{t('newOrder.discount')} (R$)</AppText>
+                    <AppText variant="labelSmall" color="text-secondary">Desconto (R$)</AppText>
                     <TextInput
                       style={[
                         {
@@ -804,13 +802,13 @@ export default function NewOrderScreen() {
                       borderTopColor: colors['outline-variant'],
                     }}
                   >
-                    <AppText variant="label" style={{ color: colors.primary, fontWeight: '700' }}>{t('newOrder.total')}</AppText>
+                    <AppText variant="label" style={{ color: colors.primary, fontWeight: '700' }}>VALOR TOTAL</AppText>
                     <AppText variant="h4" style={{ color: colors.secondary }}>R$ {grandTotal.toFixed(2)}</AppText>
                   </View>
                   <View style={{ gap: spacing.sm, marginTop: spacing.sm }}>
                     <Button
                       variant="secondary"
-                      title={t('newOrder.save')}
+                      title="Salvar OS"
                       leftIcon="save"
                       fullWidth
                       loading={saving}
@@ -826,7 +824,7 @@ export default function NewOrderScreen() {
                     />
                     <Button
                       variant="outline"
-                      title={t('newOrder.print')}
+                      title="Imprimir"
                       leftIcon="print"
                       fullWidth
                       loading={printing}

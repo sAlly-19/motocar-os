@@ -15,7 +15,6 @@ import { EmptyState } from '../../src/components/EmptyState';
 import { FabMenu } from '../../src/components/FabMenu';
 import { AppText, Button, Chip } from '../../src/ui';
 import { useDebounce } from '../../src/utils/useDebounce';
-import { useTranslation } from 'react-i18next';
 import { StickyToolbar } from '../../src/components/StickyToolbar';
 import { ListItemCard } from '../../src/components/ListItemCard';
 import { useDialog } from '../../src/components/DialogContext';
@@ -39,7 +38,6 @@ export default function InventoryScreen() {
   const colors = useThemeColors();
   const shadows = useThemeShadows();
   const br = useThemeBorderRadius();
-  const { t } = useTranslation();
   const { isDesktop } = useBreakpoints();
   const parts = useAppStore((s) => s.parts);
   const updatePartStock = useAppStore((s) => s.updatePartStock);
@@ -159,7 +157,7 @@ export default function InventoryScreen() {
             >
               <View style={{ flex: 1, minWidth: 200 }}>
                 <AppText variant="h2" style={{ color: colors.primary }}>
-                  {t('inventory.title')}
+                  Estoque de Peças
                 </AppText>
                 <AppText variant="bodySmall" color="text-secondary">
                   {kpis.totalItems} iten(s) em estoque
@@ -183,7 +181,7 @@ export default function InventoryScreen() {
             >
               <View style={{ flex: 1 }}>
                 <KpiCard
-                  label={'Valor Total em Estoque'}
+                  label="Valor em Estoque"
                   value={formatCurrency(kpis.totalValue)}
                   icon="inventory_2"
                   iconBg={colors['primary-container']}
@@ -192,7 +190,7 @@ export default function InventoryScreen() {
               </View>
               <View style={{ flex: 1 }}>
                 <KpiCard
-                  label={t('inventory.lowStock')}
+                  label="Estoque Baixo"
                   value={String(kpis.lowStock)}
                   icon="warning_amber"
                   iconBg={colors['error-container']}
@@ -346,13 +344,14 @@ export default function InventoryScreen() {
             {hasBatchChanges && (
               <View
                 style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  flexDirection: isDesktop ? 'row' : 'column',
+                  alignItems: isDesktop ? 'center' : 'stretch',
                   justifyContent: 'space-between',
                   backgroundColor: colors['warning-container'],
                   padding: spacing.md,
                   borderRadius: br.lg,
                   marginBottom: spacing.md,
+                  gap: spacing.sm,
                 }}
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
@@ -361,21 +360,27 @@ export default function InventoryScreen() {
                     Ajustes de estoque pendentes
                   </AppText>
                 </View>
-                <View style={{ flexDirection: 'row', gap: spacing.xs }}>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    title="Descartar"
-                    onPress={handleDiscardBatch}
-                  />
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    title="Salvar Ajustes"
-                    icon="check"
-                    loading={savingBatch}
-                    onPress={handleSaveBatch}
-                  />
+                <View style={{ flexDirection: 'row', gap: spacing.xs, width: isDesktop ? undefined : '100%' }}>
+                  <View style={{ flex: 1 }}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      title="Descartar"
+                      fullWidth
+                      onPress={handleDiscardBatch}
+                    />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      title="Salvar Ajustes"
+                      icon="check"
+                      fullWidth
+                      loading={savingBatch}
+                      onPress={handleSaveBatch}
+                    />
+                  </View>
                 </View>
               </View>
             )}
@@ -394,13 +399,13 @@ export default function InventoryScreen() {
                 }}
               >
                 <AppText variant="labelSmall" color="text-secondary" style={{ ...INVENTORY_COLS.name, textTransform: 'uppercase' }}>
-                  {t('part.name')}
+                  Nome da Peça
                 </AppText>
                 <AppText variant="labelSmall" color="text-secondary" style={{ ...INVENTORY_COLS.category, textTransform: 'uppercase' }}>
-                  {t('part.category')}
+                  Categoria
                 </AppText>
                 <AppText variant="labelSmall" color="text-secondary" style={{ ...INVENTORY_COLS.brand, textTransform: 'uppercase' }}>
-                  {t('part.brand')}
+                  Marca
                 </AppText>
                 <AppText variant="labelSmall" color="text-secondary" style={{ ...INVENTORY_COLS.stock, textAlign: 'right', textTransform: 'uppercase' }}>
                   Estoque
@@ -409,7 +414,7 @@ export default function InventoryScreen() {
                   Ajuste
                 </AppText>
                 <AppText variant="labelSmall" color="text-secondary" style={{ ...INVENTORY_COLS.price, textAlign: 'right', textTransform: 'uppercase' }}>
-                  {t('part.sellPrice')}
+                  Preço de Venda
                 </AppText>
                 <View style={{ width: INVENTORY_COLS.action }} />
               </View>
@@ -433,7 +438,6 @@ export default function InventoryScreen() {
           >
             <PartRow
               part={item}
-              t={t}
               pendingDelta={pendingAdjustments[item.id]}
               onAdjustStock={handleAdjust}
             />

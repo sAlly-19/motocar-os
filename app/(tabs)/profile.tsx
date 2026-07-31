@@ -25,10 +25,10 @@ interface ThemeInfo {
 }
 
 const themeInfo: ThemeInfo[] = [
-  { key: 'light', label: 'Claro', icon: 'light_mode', desc: 'Padrão elegante' },
-  { key: 'dark', label: 'Escuro', icon: 'dark_mode', desc: 'Confortável para baixa luz' },
-  { key: 'amoled', label: 'AMOLED', icon: 'brightness_3', desc: 'Preto absoluto' },
-  { key: 'midnight', label: 'Midnight Blue', icon: 'nights_stay', desc: 'Azul escuro premium' },
+  { key: 'light', label: 'Claro', icon: 'light_mode', desc: 'Padrão (Vermelho)' },
+  { key: 'light-blue', label: 'Claro Blue', icon: 'wb_sunny', desc: 'Azul e Branco' },
+  { key: 'amoled-blue', label: 'Amoled Blue', icon: 'nights_stay', desc: 'Preto e Azul' },
+  { key: 'amoled-red', label: 'Amoled Red', icon: 'brightness_3', desc: 'Preto e Vermelho' },
 ];
 
 interface MenuItem {

@@ -12,7 +12,6 @@ import {
   Inter_700Bold,
 } from '@expo-google-fonts/inter';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import '../src/i18n';
 import { ThemeProvider } from '../src/theme';
 import { useAppInitialization } from '../src/hooks/useAppInitialization';
 import { SidebarProvider } from '../src/components/SidebarContext';

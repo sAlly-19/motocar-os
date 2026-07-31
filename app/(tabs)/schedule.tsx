@@ -10,7 +10,6 @@ import { useTeamStore } from '../../src/stores/useTeamStore';
 import { EmptyState } from '../../src/components/EmptyState';
 import { AppText, Button } from '../../src/ui';
 import { useShallow } from 'zustand/react/shallow';
-import { useTranslation } from 'react-i18next';
 
 // Capacidade diária padrão: 20 OS em andamento simultâneas.
 const DAILY_CAPACITY = 20;
@@ -36,7 +35,6 @@ function initials(name: string): string {
 
 export default function ScheduleScreen() {
   const colors = useThemeColors();
-  const { t } = useTranslation();
   const { appointments, orders, customers } = useAppStore(
     useShallow((s) => ({
       appointments: s.appointments,
@@ -118,20 +116,20 @@ export default function ScheduleScreen() {
               {todayDate}
             </AppText>
             <AppText variant="h1" style={{ color: colors.primary }}>
-              {t('agenda.title')}
+              Agenda Inteligente
             </AppText>
           </View>
           <View style={{ flexDirection: 'row', gap: spacing.sm }}>
             <Button
               variant="surface"
-              title={t('agenda.today')}
+              title="Hoje"
               icon="calendar_today"
               size="sm"
               onPress={() => scrollRef.current?.scrollTo({ y: 0, animated: true })}
             />
             <Button
               variant="primary"
-              title={t('agenda.newAppointment')}
+              title="Novo Agendamento"
               icon="add"
               size="sm"
               onPress={() => router.push('/schedule/new')}
@@ -151,7 +149,7 @@ export default function ScheduleScreen() {
                 }}
               >
                 <AppText variant="h4" style={{ color: colors.primary }}>
-                  {t('agenda.dailySchedule')}
+                  Agenda do Dia
                 </AppText>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   {shownAvatars.length === 0 ? (
@@ -198,7 +196,7 @@ export default function ScheduleScreen() {
                   action={
                     <Button
                       variant="primary"
-                      title={t('agenda.newAppointment')}
+                      title="Novo Agendamento"
                       icon="add"
                       onPress={() => router.push('/schedule/new')}
                     />
@@ -270,7 +268,7 @@ export default function ScheduleScreen() {
           <View style={{ flex: 1, minWidth: 250, gap: spacing.gutter }}>
             <GlassCard style={{ padding: spacing.lg }}>
               <AppText variant="h4" style={{ color: colors.primary, marginBottom: spacing.md }}>
-                {t('agenda.deliveries')}
+                Entregas do Dia
               </AppText>
               {deliveries.length === 0 ? (
                 <AppText
@@ -313,7 +311,7 @@ export default function ScheduleScreen() {
 
             <GlassCard style={{ padding: spacing.lg }}>
               <AppText variant="h4" style={{ color: colors.primary, marginBottom: spacing.md }}>
-                {t('agenda.workshopLoad')}
+                Carga Diária da Oficina
               </AppText>
               <View
                 style={{

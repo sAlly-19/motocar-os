@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef } from 'react';
 import { View, Animated, useWindowDimensions, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router, useSegments } from 'expo-router';
-import { useTranslation } from 'react-i18next';
 import { useThemeColors, useThemeBorderRadius, useThemeShadows, spacing } from '../theme';
 import { AppText } from '../ui/Text';
 import { Icon } from './Icon';
@@ -41,7 +40,6 @@ export function Sidebar() {
   const colors = useThemeColors();
   const br = useThemeBorderRadius();
   const shadows = useThemeShadows();
-  const { t } = useTranslation();
   const { isOpen, close } = useSidebar();
   const insets = useSafeAreaInsets();
   const { width: screenWidth } = useWindowDimensions();
@@ -73,8 +71,7 @@ export function Sidebar() {
   };
 
   const translate = (key: string, fallback: string) => {
-    const val = t(key);
-    return val === key ? fallback : val;
+    return fallback;
   };
 
   const role = useAuthStore((s) => s.role);

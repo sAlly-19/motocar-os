@@ -11,7 +11,6 @@ import type { Order } from '../db/schema';
 interface OrderCardProps {
   order: Order;
   getCustomerName: (id: string) => string;
-  t: (key: string) => string;
 }
 
 const statusMap: Record<string, { variant: string; label: string }> = {
@@ -22,7 +21,7 @@ const statusMap: Record<string, { variant: string; label: string }> = {
   finished: { variant: 'finished', label: 'Finalizada' },
 };
 
-export function OrderCard({ order, getCustomerName, t }: OrderCardProps) {
+export function OrderCard({ order, getCustomerName }: OrderCardProps) {
   const colors = useThemeColors();
   const br = useThemeBorderRadius();
   const shadows = useThemeShadows();
@@ -62,7 +61,7 @@ export function OrderCard({ order, getCustomerName, t }: OrderCardProps) {
             transform="uppercase"
             style={{ letterSpacing: 1 }}
           >
-            {t('orders.serviceOrder')}
+            Ordem de Serviço
           </AppText>
           <AppText variant="h4" style={{ color: colors.primary, fontWeight: '700' }}>
             #{order.number}
@@ -100,7 +99,7 @@ export function OrderCard({ order, getCustomerName, t }: OrderCardProps) {
         }}
       >
         <AppText variant="label" style={{ color: colors.secondary, fontWeight: '600' }}>
-          {t('orders.details')}
+          Detalhes
         </AppText>
         <Icon name="arrow_forward" size={16} color={colors.secondary} />
       </View>

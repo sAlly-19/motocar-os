@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { router, useNavigation, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, spacing } from '../../src/theme';
@@ -15,7 +14,6 @@ import { triggerHaptic } from '../../src/utils/haptics';
 
 export default function EditCustomerScreen() {
   const colors = useThemeColors();
-  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { showConfirm, showAlert } = useDialog();
@@ -190,7 +188,7 @@ export default function EditCustomerScreen() {
             <CardHeader title="Dados de Identificação" icon="person" />
             <View style={{ padding: spacing.lg }}>
               <FormField
-                label={t('customer.fullName')}
+                label="Nome Completo / Razão Social"
                 value={fullName}
                 onChangeText={(v) => { setFullName(v); clearError('fullName'); markChanged(); }}
                 error={errors.fullName}
@@ -216,7 +214,7 @@ export default function EditCustomerScreen() {
             <CardHeader title="Contato" icon="contact_phone" />
             <View style={{ padding: spacing.lg }}>
               <FormField
-                label={t('customer.phone')}
+                label="Telefone / WhatsApp"
                 keyboardType="phone-pad"
                 value={phone}
                 onChangeText={(v) => { setPhone(v); clearError('phone'); markChanged(); }}
@@ -235,19 +233,19 @@ export default function EditCustomerScreen() {
               marginBottom: spacing.gutter,
             }}
           >
-            <CardHeader title={t('customer.address')} icon="location_on" />
+            <CardHeader title="Endereço" icon="location_on" />
             <View style={{ padding: spacing.lg }}>
               <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                 <View style={{ flex: 1 }}>
                   <FormField
-                    label={t('customer.zipCode')}
+                    label="CEP"
                     value={zipCode}
                     onChangeText={(v) => { setZipCode(v); markChanged(); }}
                   />
                 </View>
                 <View style={{ flex: 3 }}>
                   <FormField
-                    label={t('customer.street')}
+                    label="Logradouro"
                     value={street}
                     onChangeText={(v) => { setStreet(v); markChanged(); }}
                   />
@@ -256,14 +254,14 @@ export default function EditCustomerScreen() {
               <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                 <View style={{ flex: 1 }}>
                   <FormField
-                    label={t('customer.number')}
+                    label="Número"
                     value={streetNumber}
                     onChangeText={(v) => { setStreetNumber(v); markChanged(); }}
                   />
                 </View>
                 <View style={{ flex: 3 }}>
                   <FormField
-                    label={t('customer.neighborhood')}
+                    label="Bairro"
                     value={neighborhood}
                     onChangeText={(v) => { setNeighborhood(v); markChanged(); }}
                   />
@@ -272,14 +270,14 @@ export default function EditCustomerScreen() {
               <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                 <View style={{ flex: 2 }}>
                   <FormField
-                    label={t('customer.city')}
+                    label="Cidade"
                     value={city}
                     onChangeText={(v) => { setCity(v); markChanged(); }}
                   />
                 </View>
                 <View style={{ flex: 1 }}>
                   <FormField
-                    label={t('customer.state')}
+                    label="UF"
                     value={state}
                     onChangeText={(v) => { setState(v); markChanged(); }}
                   />

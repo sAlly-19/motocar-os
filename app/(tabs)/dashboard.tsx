@@ -11,13 +11,11 @@ import { AnimatedPressable } from '../../src/components/AnimatedPressable';
 import { formatCurrency } from '../../src/utils/currency';
 import { useAppStore } from '../../src/stores/useAppStore';
 import { useShallow } from 'zustand/react/shallow';
-import { useTranslation } from 'react-i18next';
 import { useRevenue } from '../../src/hooks/useRevenue';
 import { AppText, Button, Chip } from '../../src/ui';
 
 export default function DashboardScreen() {
   const colors = useThemeColors();
-  const { t } = useTranslation();
   const { width } = useWindowDimensions();
   const isDesktop = width >= 1024;
   const [period, setPeriod] = useState<'today' | 'week' | 'month' | 'custom'>('today');
@@ -41,7 +39,7 @@ export default function DashboardScreen() {
   );
   const inProgress = useMemo(() => orders.filter((o) => o.status === 'in-progress').length, [orders]);
   const finishedToday = useMemo(() => orders.filter((o) => o.status === 'finished').length, [orders]);
-  const lowStockItems = useMemo(() => parts.filter((p) => p.currentStock < p.minStock), [parts]);
+  const lowStockItems = useMemo(() => parts.filter((p) => p.currentStock <= p.minStock), [parts]);
   const criticalStock = useMemo(() => lowStockItems.filter((p) => p.currentStock === 0), [lowStockItems]);
   const getCustomerName = (id: string) => customers.find((c) => c.id === id)?.fullName || id.slice(0, 8);
   const maxBar = Math.max(...chartData.flatMap((d) => [d.today, d.yesterday]), 1);
@@ -65,21 +63,21 @@ export default function DashboardScreen() {
           {[
             {
               val: String(openOS),
-              label: t('dashboard.openOS'),
+              label: 'OS Abertas',
               icon: 'assignment_late',
               bg: colors['error-container'],
               fg: colors['on-error-container'],
             },
             {
               val: String(inProgress),
-              label: t('dashboard.inProgress'),
+              label: 'Em Andamento',
               icon: 'build_circle',
               bg: colors['info-container'],
               fg: colors['on-info-container'],
             },
             {
               val: String(finishedToday),
-              label: t('dashboard.finishedToday'),
+              label: 'Concluídas Hoje',
               icon: 'task_alt',
               bg: colors['success-container'],
               fg: colors['on-success-container'],
@@ -164,10 +162,10 @@ export default function DashboardScreen() {
             >
               <View>
                 <AppText variant="h4" style={{ color: colors.primary }}>
-                  {t('dashboard.dailyRevenue')}
+                  Receita do Dia
                 </AppText>
                 <AppText variant="bodySmall" color="text-secondary">
-                  {t('dashboard.revenueComparison')}
+                  Comparação: Hoje vs Ontem
                 </AppText>
               </View>
               <View style={{ flexDirection: 'row', gap: spacing.md }}>
@@ -256,7 +254,7 @@ export default function DashboardScreen() {
                 variant="label"
                 style={{ color: colors['on-primary'], opacity: 0.8, marginBottom: spacing.sm }}
               >
-                {t('dashboard.dailyRevenue')}
+                Receita do Dia
               </AppText>
               <AppText variant="h1" style={{ color: colors['on-primary'] }}>
                 {formatCurrency(periodRevenue)}
@@ -279,11 +277,11 @@ export default function DashboardScreen() {
                 }}
               >
                 <AppText variant="h4" style={{ color: colors.primary }}>
-                  {t('dashboard.stockAlerts')}
+                  Alertas de Estoque
                 </AppText>
                 <StatusBadge
-                  variant="ready"
-                  label={`${criticalStock.length} ${t('dashboard.critical')}`}
+                  variant="out-of-stock"
+                  label={`${criticalStock.length} CRÍTICO`}
                 />
               </View>
               {lowStockItems.length === 0 ? (
@@ -293,10 +291,12 @@ export default function DashboardScreen() {
                   </AppText>
                 </View>
               ) : (
-                lowStockItems.slice(0, 3).map((part) => (
+                lowStockItems.slice(0, 3).map((part) => {
+                  const isCritical = part.currentStock === 0;
+                  return (
                   <AnimatedPressable
                     key={part.id}
-                    onPress={() => router.push('/inventory/new-part')}
+                    onPress={() => router.push({ pathname: '/inventory/[id]', params: { id: part.id } })}
                     accessibilityRole="button"
                     accessibilityLabel={`${part.name}, ${part.currentStock} unidades restantes`}
                     style={{
@@ -310,19 +310,19 @@ export default function DashboardScreen() {
                       <AppText variant="label" style={{ color: colors.primary }}>
                         {part.name}
                       </AppText>
-                      <AppText variant="labelSmall" color="text-secondary">
-                        Restante: {part.currentStock} un
+                      <AppText variant="labelSmall" style={{ color: isCritical ? colors.error : colors.secondary }}>
+                        {part.currentStock} un (Mín: {part.minStock})
                       </AppText>
                     </View>
-                    {part.currentStock === 0 && (
-                      <Icon name="priority_high" size={24} color={colors.secondary} />
+                    {isCritical && (
+                      <Icon name="priority_high" size={20} color={colors.error} />
                     )}
                   </AnimatedPressable>
-                ))
+                )})
               )}
               <Button
                 variant="ghost"
-                title={t('dashboard.viewInventory')}
+                title="Ver Estoque"
                 fullWidth
                 onPress={() => router.push('/(tabs)/inventory')}
                 style={{ marginTop: spacing.md }}
@@ -344,7 +344,7 @@ export default function DashboardScreen() {
             }}
           >
             <AppText variant="h4" style={{ color: colors.primary }}>
-              {t('dashboard.liveWorkshop')}
+              Status da Oficina
             </AppText>
             <View style={{ flexDirection: 'row', gap: spacing.sm }}>
               <Button

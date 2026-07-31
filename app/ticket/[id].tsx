@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { View, ScrollView, Share, Platform, KeyboardAvoidingView, Linking } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { useLocalSearchParams, router, useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, spacing, useBreakpoints } from '../../src/theme';
@@ -20,7 +19,6 @@ const isWeb = Platform.OS === 'web';
 export default function TicketScreen() {
   const colors = useThemeColors();
   const br = useThemeBorderRadius();
-  const { t } = useTranslation();
   const { isDesktop } = useBreakpoints();
   const { id } = useLocalSearchParams();
   const insets = useSafeAreaInsets();
@@ -238,7 +236,7 @@ export default function TicketScreen() {
                   MotoCar
                 </AppText>
                 <AppText variant="label" style={{ color: colors['on-primary-container'] }}>
-                  {t('app.tagline')}
+                  AUTOMOTIVE EXCELLENCE CENTER
                 </AppText>
               </View>
               <View style={{ alignItems: 'flex-end', gap: spacing.xs }}>
@@ -268,7 +266,7 @@ export default function TicketScreen() {
             <View style={{ padding: spacing.lg }}>
               <View style={{ flexDirection: 'row', gap: spacing.xl, flexWrap: 'wrap' }}>
                 <View style={{ flex: 1, minWidth: 200 }}>
-                  <AppText {...sectionHeaderProps}>{t('ticket.owner')}</AppText>
+                  <AppText {...sectionHeaderProps}>Proprietário</AppText>
                   <AppText variant="h4" style={{ color: colors.primary }}>
                     {customer?.fullName || 'N/A'}
                   </AppText>
@@ -277,7 +275,7 @@ export default function TicketScreen() {
                   </AppText>
                 </View>
                 <View style={{ flex: 1, minWidth: 200 }}>
-                  <AppText {...sectionHeaderProps}>{t('ticket.vehicle')}</AppText>
+                  <AppText {...sectionHeaderProps}>Veículo</AppText>
                   <AppText variant="h4" style={{ color: colors.primary }}>
                     {vehicle?.brand ?? ''} {vehicle?.model ?? ''}
                   </AppText>
@@ -322,7 +320,7 @@ export default function TicketScreen() {
 
             <View style={{ padding: spacing.lg, gap: spacing.md }}>
               <AppText {...sectionHeaderProps} style={{ ...sectionHeaderProps.style, marginBottom: 0 }}>
-                {t('ticket.services')}
+                Serviços & Peças
               </AppText>
 
               {(() => {
@@ -480,7 +478,7 @@ export default function TicketScreen() {
                 }}
               >
                 <AppText variant="h4" style={{ color: colors.primary }}>
-                  {t('ticket.total')}
+                  TOTAL
                 </AppText>
                 <AppText variant="h3" style={{ color: colors.primary, fontWeight: '800' }}>
                   {formatCurrency(order.total)}
@@ -512,7 +510,7 @@ export default function TicketScreen() {
               }}
             >
               <AppText variant="labelSmall" style={{ color: colors.outline }}>
-                {t('ticket.footer')}
+                MotoCar Workshop Management System © {new Date().getFullYear()}
               </AppText>
             </View>
           </Card>
@@ -561,7 +559,7 @@ export default function TicketScreen() {
 
           <View style={{ flexDirection: 'row', gap: spacing.sm, flexWrap: 'wrap' }}>
             <View style={{ flex: 1, minWidth: 100 }}>
-              <Button variant="outline" title={t('ticket.back')} fullWidth onPress={() => router.back()} />
+              <Button variant="outline" title="Voltar" fullWidth onPress={() => router.back()} />
             </View>
             <View style={{ flex: 1, minWidth: 100 }}>
               <Button
@@ -585,7 +583,7 @@ export default function TicketScreen() {
             <View style={{ flex: 1, minWidth: 100 }}>
               <Button
                 variant="primary"
-                title={t('ticket.print')}
+                title="Imprimir PDF"
                 leftIcon="print"
                 fullWidth
                 onPress={handlePrint}

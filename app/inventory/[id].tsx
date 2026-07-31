@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform, TextInput, Pressable, Modal } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { router, useNavigation, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, spacing, useBreakpoints } from '../../src/theme';
@@ -20,7 +19,6 @@ const FIXED_MODEL_OPTIONS = ['Outros'];
 
 export default function EditPartScreen() {
   const colors = useThemeColors();
-  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { isDesktop } = useBreakpoints();
@@ -229,19 +227,21 @@ export default function EditPartScreen() {
                </View>
                <View style={{ flex: 1, minWidth: 0, width: isDesktop ? undefined : '100%' }}>
                   <FormField
-                    label={t('part.partName')}
+                    label="Nome da Peça"
                     value={name}
                     onChangeText={(v) => { setName(v); clearError('name'); markChanged(); }}
                     error={errors.name}
                   />
                   <FormField
-                    label={t('part.sku')}
+                    label="SKU / Código"
                     value={sku}
                     onChangeText={(v) => { setSku(v); markChanged(); }}
                   />
+
+                  {/* Categoria: Carro / Moto */}
                   <View style={{ marginBottom: spacing.md }}>
                     <AppText variant="label" color="text-secondary" style={{ marginBottom: spacing.xs }}>
-                      {t('part.category')}
+                      Categoria
                     </AppText>
                     <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                       <Chip
@@ -264,7 +264,7 @@ export default function EditPartScreen() {
                     )}
                   </View>
                   <Autocomplete
-                    label={t('part.brand')}
+                    label="Marca"
                     value={brand}
                     onChangeText={(v) => { setBrand(v); markChanged(); }}
                     suggestions={brandSuggestions}
@@ -326,7 +326,7 @@ export default function EditPartScreen() {
                     error={errors.sellPrice}
                   />
                   <FormField
-                    label={t('part.costPrice')}
+                    label="Preço de Custo"
                     keyboardType="decimal-pad"
                     value={costPrice}
                     onChangeText={(v) => { setCostPrice(v); markChanged(); }}
@@ -352,7 +352,7 @@ export default function EditPartScreen() {
               <View style={{ flexDirection: 'row', gap: spacing.sm, flexWrap: 'wrap' }}>
                 <View style={{ flex: 1, minWidth: 140 }}>
                   <FormField
-                    label={t('part.currentStock')}
+                    label="Quantidade Atual"
                     keyboardType="numeric"
                     value={currentStock}
                     onChangeText={(v) => { setCurrentStock(v); clearError('currentStock'); markChanged(); }}
@@ -361,10 +361,10 @@ export default function EditPartScreen() {
                 </View>
                 <View style={{ flex: 1, minWidth: 140 }}>
                   <FormField
-                    label={t('part.minStock')}
-                    keyboardType="numeric"
-                    value={minStock}
-                    onChangeText={(v) => { setMinStock(v); markChanged(); }}
+                    label="Preço de Custo"
+                    keyboardType="decimal-pad"
+                    value={costPrice}
+                    onChangeText={(v) => { setCostPrice(v); markChanged(); }}
                   />
                 </View>
               </View>

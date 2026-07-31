@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { router, useNavigation, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, spacing } from '../../src/theme';
@@ -20,7 +19,6 @@ const CARRO_TIPOS = ['Hatch', 'Picape', 'Sedã', 'SUV', 'Minivan', 'Perua', 'Out
 
 export default function EditVehicleScreen() {
   const colors = useThemeColors();
-  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { showConfirm, showAlert } = useDialog();
@@ -185,7 +183,7 @@ export default function EditVehicleScreen() {
               marginBottom: spacing.gutter,
             }}
           >
-            <CardHeader title={t('vehicle.technicalInfo')} icon="directions_car" />
+            <CardHeader title="Informações Técnicas" icon="directions_car" />
             <View style={{ padding: spacing.lg }}>
               <View style={{ marginBottom: spacing.md }}>
                 <AppText variant="label" color="text-secondary" style={{ marginBottom: spacing.xs }}>
@@ -223,7 +221,7 @@ export default function EditVehicleScreen() {
               </View>
 
               <Autocomplete
-                label={t('vehicle.brand')}
+                label="Marca"
                 value={brand}
                 onChangeText={(v) => { setBrand(v); clearError('brand'); markChanged(); }}
                 suggestions={brandSuggestions}
@@ -232,7 +230,7 @@ export default function EditVehicleScreen() {
               <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                 <View style={{ flex: 1 }}>
                   <FormField
-                    label={t('vehicle.model')}
+                    label="Modelo"
                     value={model}
                     onChangeText={(v) => { setModel(v); clearError('model'); markChanged(); }}
                     error={errors.model}
@@ -240,7 +238,7 @@ export default function EditVehicleScreen() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <FormField
-                    label={t('vehicle.year')}
+                    label="Ano"
                     keyboardType="numeric"
                     value={year}
                     onChangeText={(v) => { setYear(v); markChanged(); }}

@@ -75,27 +75,7 @@ export default function EditEmployeeScreen() {
   }, [navigation, hasUnsavedChanges]);
 
   if (!employee) {
-  const handleCopyToken = () => {
-    try {
-      (navigator as any)?.clipboard?.writeText?.(token);
-      showAlert('Copiado', 'Token copiado para a área de transferência.');
-    } catch {
-      // Fallback
-    }
-  };
-
-  const handleRegenerateToken = () => {
-    showConfirm(
-      'Regerar Token',
-      'Gerar um novo token invalidará o acesso atual deste membro até que ele insira o novo token. Confirmar?',
-      () => {
-        setToken(Math.random().toString(36).substring(2, 8).toUpperCase());
-        markChanged();
-      }
-    );
-  };
-
-  return (
+    return (
       <AppShell>
         <EmptyState
           illustration="empty-team"
@@ -172,7 +152,12 @@ export default function EditEmployeeScreen() {
       'Regerar Token',
       'Gerar um novo token invalidará o acesso atual deste membro até que ele insira o novo token. Confirmar?',
       () => {
-        setToken(Math.random().toString(36).substring(2, 8).toUpperCase());
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let newToken = 'MC-';
+        for (let i = 0; i < 4; i++) {
+          newToken += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        setToken(newToken);
         markChanged();
       }
     );

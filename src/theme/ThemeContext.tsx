@@ -6,7 +6,7 @@ import { typography } from './typography';
 import { spacing, borderRadius } from './spacing';
 import { createShadowTokens } from './tokens';
 
-export type ThemeKey = 'light' | 'dark' | 'amoled' | 'midnight';
+export type ThemeKey = 'light' | 'light-blue' | 'amoled-blue' | 'amoled-red';
 
 const isWeb = Platform.OS === 'web';
 const THEME_FILE = isWeb ? '' : (FileSystem as any).documentDirectory + 'theme.txt';
@@ -15,7 +15,7 @@ async function loadTheme(): Promise<ThemeKey> {
   if (isWeb) {
     try {
       const saved = localStorage.getItem('motocar_theme');
-      if (saved && ['light', 'dark', 'amoled', 'midnight'].includes(saved)) {
+      if (saved && ['light', 'light-blue', 'amoled-blue', 'amoled-red'].includes(saved)) {
         return saved as ThemeKey;
       }
     } catch {}
@@ -26,7 +26,7 @@ async function loadTheme(): Promise<ThemeKey> {
     if (info.exists) {
       const content = await FileSystem.readAsStringAsync(THEME_FILE);
       const key = content.trim() as ThemeKey;
-      if (['light', 'dark', 'amoled', 'midnight'].includes(key)) return key;
+      if (['light', 'light-blue', 'amoled-blue', 'amoled-red'].includes(key)) return key;
     }
   } catch {}
   return 'light';
@@ -55,7 +55,7 @@ export const ThemeContext = createContext<ThemeContextType>({
   themeKey: 'light',
   setTheme: () => {},
   colors: themes.light,
-  themeKeys: ['light', 'dark', 'amoled', 'midnight'],
+  themeKeys: ['light', 'light-blue', 'amoled-blue', 'amoled-red'],
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

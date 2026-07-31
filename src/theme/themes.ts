@@ -1,6 +1,6 @@
 import { light } from './themes/light';
-import { dark } from './themes/dark';
-import { amoled } from './themes/amoled';
-import { midnight } from './themes/midnight';
+import { lightBlue } from './themes/light-blue';
+import { amoledBlue } from './themes/amoled-blue';
+import { amoledRed } from './themes/amoled-red';
 
-export const themes = { light, dark, amoled, midnight };
+export const themes = { light, 'light-blue': lightBlue, 'amoled-blue': amoledBlue, 'amoled-red': amoledRed };

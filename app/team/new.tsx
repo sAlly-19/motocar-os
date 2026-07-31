@@ -20,9 +20,9 @@ const ROLE_OPTIONS: EmployeeRole[] = ['mechanic', 'assistant', 'receptionist', '
 const STATUS_OPTIONS: EmployeeStatus[] = ['active', 'inactive', 'vacation'];
 
 function generateToken(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let token = 'tok-';
-  for (let i = 0; i < 16; i++) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let token = 'MC-';
+  for (let i = 0; i < 4; i++) {
     token += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return token;

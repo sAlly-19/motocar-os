@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { router, useNavigation } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColors, useThemeBorderRadius, spacing } from '../../src/theme';
@@ -31,7 +30,6 @@ const CARRO_TIPOS = ['Hatch', 'Picape', 'Sedã', 'SUV', 'Minivan', 'Perua', 'Out
 
 export default function NewVehicleScreen() {
   const colors = useThemeColors();
-  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const { showConfirm, showAlert } = useDialog();
@@ -140,7 +138,7 @@ export default function NewVehicleScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <AppText variant="h1" style={{ color: colors.primary, marginBottom: spacing.sm }}>
-            {t('vehicle.title')}
+            Cadastro de Veículo
           </AppText>
           <AppText variant="bodySmall" color="text-secondary" style={{ marginBottom: spacing.lg }}>
             Cadastre modelos de referência para uso nas Ordens de Serviço e nas peças.
@@ -156,7 +154,7 @@ export default function NewVehicleScreen() {
               marginBottom: spacing.gutter,
             }}
           >
-            <CardHeader title={t('vehicle.technicalInfo')} icon="directions_car" />
+            <CardHeader title="Informações Técnicas" icon="directions_car" />
             <View style={{ padding: spacing.lg }}>
               {/* Categoria — chip group */}
               <View style={{ marginBottom: spacing.md }}>
@@ -195,7 +193,7 @@ export default function NewVehicleScreen() {
               </View>
 
               <Autocomplete
-                label={t('vehicle.brand')}
+                label="Marca"
                 placeholder="Ex: Honda, BMW..."
                 value={brand}
                 onChangeText={(v) => { setBrand(v); clearError('brand'); markChanged(); }}
@@ -206,7 +204,7 @@ export default function NewVehicleScreen() {
               <View style={{ flexDirection: 'row', gap: spacing.sm }}>
                 <View style={{ flex: 1 }}>
                   <FormField
-                    label={t('vehicle.model')}
+                    label="Modelo"
                     placeholder="Ex: 320i, CB 500"
                     value={model}
                     onChangeText={(v) => { setModel(v); clearError('model'); markChanged(); }}
@@ -215,7 +213,7 @@ export default function NewVehicleScreen() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <FormField
-                    label={t('vehicle.year')}
+                    label="Ano"
                     placeholder="2024"
                     keyboardType="numeric"
                     value={year}
@@ -255,7 +253,7 @@ export default function NewVehicleScreen() {
           <View style={{ gap: spacing.sm, marginTop: spacing.lg }}>
             <Button
               variant="secondary"
-              title={t('vehicle.save')}
+              title="Salvar Veículo"
               fullWidth
               loading={saving}
               disabled={!hasUnsavedChanges || saving}
@@ -263,7 +261,7 @@ export default function NewVehicleScreen() {
             />
             <Button
               variant="outline"
-              title={t('vehicle.cancel')}
+              title="Cancelar"
               fullWidth
               onPress={() => router.back()}
             />
